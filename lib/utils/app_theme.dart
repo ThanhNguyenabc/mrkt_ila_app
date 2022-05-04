@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mrkt_app/utils/app_colors.dart';
+import 'package:mrkt_app/utils/constants.dart';
 
 const textTheme = TextTheme(
   headline1: TextStyle(fontSize: 25, color: Colors.black),
@@ -16,12 +17,17 @@ ThemeData lightAppTheme() {
       appBarTheme: const AppBarTheme(
         systemOverlayStyle: SystemUiOverlayStyle.light,
         elevation: 0,
+        backgroundColor: Colors.white,
         titleTextStyle: TextStyle(
-            fontSize: 20,
-            color: Colors.white,
-            fontFamily: 'SFProDisplayMedium'),
-        iconTheme: IconThemeData(color: Colors.white),
+            fontSize: 18, color: Colors.black, fontFamily: mediumFont),
+        iconTheme: IconThemeData(color: Colors.black),
       ),
+      bottomSheetTheme: const BottomSheetThemeData(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20)))),
+      dialogTheme: const DialogTheme(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20)))),
       primaryColor: AppColors.primaryColor,
       brightness: Brightness.light,
       fontFamily: 'Poppins-Regular',

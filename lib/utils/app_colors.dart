@@ -18,9 +18,13 @@ class AppColors {
   static const gray90 = Color(0xFF909090);
   static const electricViolet = Color(0xFF7536FC);
   static const alizarinCrimson = Color(0xFFE42F2F);
-  static const saffron = Color(0xFFF6C927);
+  static const saffron = Color(0xFFF7C927);
   static const fruitSalad = Color(0xFF56B14E);
   static const niagara = Color(0xFF08ACA2);
   static const moddyBlue = Color(0xFF7A7ACC);
   static const scooter = Color(0xFF21B9DB);
+  static const seashell = Color(0xFFF1F1F1);
+  static const kleinBlue = Color(0xFF00229C);
+  static const red = Color(0xFFFF0000);
+  static const blueChalk = Color(0xFFEFE8FF);
 }
