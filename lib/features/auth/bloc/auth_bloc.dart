@@ -74,6 +74,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
+  Future<User?> getUserInfo() async {
+    try {
+      final dio = getIt.get<DioClient>();
+      await dio.request(HttpMethod.post,
+          params: {'f': 'User_Read'}, requestData: {});
+
+      emit(state.copyWith(user: User(), authStatus: AuthStatus.logout));
+      LocalStorage.instance().removeDataAfterLogout();
+    } catch (e) {
+      print(e);
+    }
+  }
+
   void registerAccount(RegisterEvent event, Emitter emit) async {
     emit(state.copyWith(netWorkStatus: NetWorkStatus.loading));
     final requestData = event.data;
@@ -82,6 +95,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final response = await dio.request(HttpMethod.post,
           params: {'f': 'User_Create'},
           requestData: {"data": requestData.toMap2()});
+      print('register');
+      print(response['data']);
       final newUser = event.data.copyWith(id: response["data"]);
       cacheLoggedUser(newUser);
       emit(state.copyWith(

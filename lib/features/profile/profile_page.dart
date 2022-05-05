@@ -45,7 +45,7 @@ class _ProfilePageState extends State<ProfilePage> {
           child: Column(
             children: [
               GestureDetector(
-                onTap: () => showBottomUserList(context),
+                // onTap: () => showBottomUserList(context),
                 behavior: HitTestBehavior.opaque,
                 child: Row(
                   children: [
