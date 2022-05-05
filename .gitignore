@@ -600,5 +600,7 @@ app.*.symbols
 # Exceptions to above rules.
 !/dev/ci/**/Gemfile.lock
 
-# Quang
 collab-release-key.keystore
+ios/Flutter/Debug.xcconfig
+ios/Flutter/Release.xcconfig
+ios/Runner.xcworkspace/contents.xcworkspacedata
