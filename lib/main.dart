@@ -1,15 +1,13 @@
 import 'dart:convert';
 
+import 'package:data/data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mrkt_app/api/dio_client.dart';
-import 'package:mrkt_app/features/auth/auth_page.dart';
-import 'package:mrkt_app/features/auth/bloc/auth_bloc.dart';
 import 'package:mrkt_app/ila_routes.dart';
-import 'package:mrkt_app/local_storage.dart';
+import 'package:mrkt_app/screens/auth/auth_page.dart';
+import 'package:mrkt_app/screens/auth/bloc/index.dart';
 import 'package:mrkt_app/service_locator.dart';
 import 'package:mrkt_app/utils/app_theme.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 Map<String, dynamic>? safeParse(String? source) {
   if (source == null) return null;
@@ -21,12 +19,11 @@ Map<String, dynamic>? safeParse(String? source) {
 }
 
 GlobalKey<NavigatorState> appNavigator = GlobalKey<NavigatorState>();
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  final prefs = await SharedPreferences.getInstance();
-  LocalStorage(prefs: prefs);
-  initDenpendencies();
-
+  await initDatabase();
+  await initDenpendencies();
   runApp(const IlaApp());
 }
 
@@ -41,7 +38,6 @@ class _IlaAppState extends State<IlaApp> {
   @override
   void initState() {
     super.initState();
-    DioClient.getCookieId();
   }
 
   @override

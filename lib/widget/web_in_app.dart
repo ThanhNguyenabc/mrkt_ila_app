@@ -4,8 +4,6 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:mrkt_app/api/dio_client.dart';
-import 'package:mrkt_app/local_storage.dart';
 import 'package:mrkt_app/widget/navigation_controls.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -86,13 +84,7 @@ class _WebInAppState extends State<WebInApp> {
                     };
                   },
                   onWebViewCreated: (controller) {
-                    final cookieStr = LocalStorage.instance()
-                        .prefs
-                        .getString(LocalStorage.cookie);
-                    print("cokieeeeee");
-
                     webViewController.complete(controller);
-                    controller.loadUrl(url!, headers: {"cookie": cookieStr!});
                     widget.onWebViewCreated?.call(controller);
                   },
                   gestureRecognizers: Set()
@@ -105,7 +97,7 @@ class _WebInAppState extends State<WebInApp> {
                     progress.value = finishStatus;
                     widget.onPageFinished?.call(url);
                   },
-                  // initialUrl: url,
+                  initialUrl: url,
                   javascriptMode: JavascriptMode.unrestricted,
                 ),
                 ValueListenableBuilder(

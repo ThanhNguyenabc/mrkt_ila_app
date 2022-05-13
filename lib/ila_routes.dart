@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mrkt_app/features/auth/auth_route.dart';
-import 'package:mrkt_app/features/home/main_page.dart';
-import 'package:mrkt_app/features/landing_page/landing_page.dart';
-import 'package:mrkt_app/features/profile/profile_route.dart';
-import 'package:mrkt_app/features/register/register_route.dart';
+import 'package:mrkt_app/screens/auth/auth_route.dart';
+import 'package:mrkt_app/screens/home/main_page.dart';
+import 'package:mrkt_app/screens/landing_page/landing_page.dart';
+import 'package:mrkt_app/screens/profile/profile_route.dart';
+import 'package:mrkt_app/screens/register/register_route.dart';
 
 class IlaRoute {
   static Map<String, Widget Function(BuildContext)> allRoutes() {
