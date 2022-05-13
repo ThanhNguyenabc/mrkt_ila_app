@@ -1,13 +1,25 @@
+import 'package:data/data.dart';
+import 'package:domain/repository.dart';
 import 'package:get_it/get_it.dart';
-import 'package:mrkt_app/api/dio_client.dart';
-import 'package:mrkt_app/features/auth/bloc/auth_bloc.dart';
-import 'package:mrkt_app/features/profile/bloc/profile_bloc.dart';
+import 'package:mrkt_app/screens/profile/bloc/profile_bloc.dart';
+import 'screens/auth/bloc/index.dart';
 
 GetIt getIt = GetIt.instance;
 
-void initDenpendencies() async {
+Future<void> initDenpendencies() async {
   getIt
-    ..registerSingleton(DioClient.instance())
-    ..registerSingleton(AuthBloc())
+    ..registerSingleton(AuthLocalData.getInstance())
+    ..registerSingleton(AppDio.getInstance(getIt()));
+
+  // init repo
+  getIt
+    ..registerFactory(() => AuthRemoteData(getIt()))
+    ..registerFactory(() =>
+        AuthRepositoryImpl(getIt<AuthRemoteData>(), getIt<AuthLocalData>()));
+
+  // init bloc
+  getIt
+    ..registerSingleton(AuthBloc(authRepository: getIt<AuthRepositoryImpl>()))
     ..registerFactory(() => ProfileBloc(authBloc: getIt.get<AuthBloc>()));
+  
 }
