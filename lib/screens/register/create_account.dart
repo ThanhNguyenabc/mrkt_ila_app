@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mrkt_app/screens/auth/auth_page.dart';
 import 'package:mrkt_app/screens/auth/bloc/index.dart';
+import 'package:mrkt_app/screens/register/cefr_level_item.dart';
 import 'package:mrkt_app/screens/register/create_child_account.dart';
 import 'package:mrkt_app/utils/app_colors.dart';
 import 'package:mrkt_app/utils/constants.dart';
@@ -132,7 +133,7 @@ class _CreatingAccountState extends State<CreatingAccount> {
                   textStyle: inputTextStyle,
                   hint: 'Password',
                   controller: txtPassword,
-                  validator: validatePassword,
+                  validator: (text) => StringUtil.validatePassword(text),
                 ),
                 const SizedBox(
                   height: spacing_30,
@@ -141,11 +142,16 @@ class _CreatingAccountState extends State<CreatingAccount> {
                   controller: txtConfirmPassword,
                   textStyle: inputTextStyle,
                   hint: 'Confirm password',
-                  validator: validateConfirmPassword,
+                  validator: (text) => StringUtil.validateConfirmPassword(
+                      text, txtPassword.text),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: spacing_30),
+                  child: CEFRLevelItem(),
                 ),
                 if (accountType == AccountType.normal) ...{
                   const SizedBox(
-                    height: 100,
+                    height: spacing_30,
                   ),
                   Button(
                     radius: radius_40,
@@ -189,7 +195,7 @@ class _CreatingAccountState extends State<CreatingAccount> {
                       ),
                     ),
                   )
-                }
+                },
               ],
             ),
           ),
@@ -201,20 +207,6 @@ class _CreatingAccountState extends State<CreatingAccount> {
   String? validateEmail(String? text) {
     if (text == null) return 'Email is required';
     return StringUtil.validateEmail(text) ? null : 'Invalid email format';
-  }
-
-  String? validatePassword(String? text) {
-    if (text == null) return 'Passowrd is required';
-    return StringUtil.validatePassword(text)
-        ? null
-        : 'Passowrd must be at least 6 characters';
-  }
-
-  String? validateConfirmPassword(String? text) {
-    if (text == null) return 'Confirm Passowrd is required';
-    return txtPassword.text.compareTo(txtConfirmPassword.text) == 0
-        ? null
-        : "The password confirmation does not match";
   }
 
   void signUp() {
