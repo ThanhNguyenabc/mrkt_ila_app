@@ -31,9 +31,8 @@ class Button extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return AnimatedContainer(
+    return Container(
       margin: margin,
-      duration: const Duration(milliseconds: 450),
       width: width ?? size.width,
       height: height,
       decoration: BoxDecoration(

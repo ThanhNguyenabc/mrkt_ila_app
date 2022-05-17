@@ -12,6 +12,7 @@ class ActionSheetItem extends StatelessWidget {
       this.titleStyle,
       this.iconName,
       this.fontFamily = lightFont,
+      this.bgColor = Colors.white,
       this.textColor = AppColors.primaryColor})
       : super(key: key);
   final VoidCallback? onPress;
@@ -20,7 +21,7 @@ class ActionSheetItem extends StatelessWidget {
   final TextStyle? titleStyle;
   final Color? textColor;
   final String fontFamily;
-
+  final Color bgColor;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -34,7 +35,7 @@ class ActionSheetItem extends StatelessWidget {
             borderRadius: BorderRadius.circular(
               radius_10,
             ),
-            color: Colors.white),
+            color: bgColor),
         child: Stack(
           children: [
             if (iconName != null) ...[

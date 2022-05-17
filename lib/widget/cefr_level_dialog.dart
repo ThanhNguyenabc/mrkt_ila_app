@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mrkt_app/screens/cefr_level/CEFR_level_page.dart';
 import 'package:mrkt_app/utils/app_colors.dart';
 import 'package:mrkt_app/utils/constants.dart';
 import 'package:mrkt_app/widget/app_button_style.dart';
@@ -7,13 +8,13 @@ import 'package:mrkt_app/widget/button.dart';
 import 'package:mrkt_app/widget/index.dart';
 
 class CEFRLevelDialog extends StatefulWidget {
-  const CEFRLevelDialog(
-      {Key? key, this.buttonTitle = 'Select', this.onSelectedLevel})
-      : super(key: key);
+  const CEFRLevelDialog({
+    Key? key,
+    this.buttonTitle = 'Select',
+    this.onSelectedLevel,
+  }) : super(key: key);
   final String buttonTitle;
-
   final Function(int)? onSelectedLevel;
-
   @override
   State<CEFRLevelDialog> createState() => _CEFRLevelDialogState();
 }
@@ -30,24 +31,44 @@ class _CEFRLevelDialogState extends State<CEFRLevelDialog> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              'CEFR Level',
-              style: Theme.of(context)
-                  .textTheme
-                  .headline3
-                  ?.copyWith(fontFamily: semiBoldFont, color: AppColors.smalt),
+            Row(
+              children: [
+                Text(
+                  'CEFR Level',
+                  style: Theme.of(context).textTheme.headline3?.copyWith(
+                      fontFamily: semiBoldFont, color: AppColors.smalt),
+                ),
+                const Spacer(),
+                GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () async {
+                    final result = await Navigator.of(context)
+                        .pushNamed(CEFRLevelPage.route) as Map;
+                    setState(() {
+                      selectedIndex = result["selectedIndex"];
+                    });
+                  },
+                  child: Text(
+                    "detail",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline5
+                        ?.copyWith(color: AppColors.electricViolet),
+                  ),
+                )
+              ],
             ),
             const SizedBox(
               height: spacing_24,
             ),
             SizedBox(
-              height: 220,
+              height: 250,
               child: GridView.builder(
                   itemCount: CEFRLevels.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
-                      mainAxisSpacing: spacing_20,
-                      crossAxisSpacing: spacing_20),
+                      mainAxisSpacing: spacing_16,
+                      crossAxisSpacing: spacing_16),
                   itemBuilder: (context, index) {
                     final item = CEFRLevels[index]!;
                     return GestureDetector(
@@ -56,13 +77,17 @@ class _CEFRLevelDialogState extends State<CEFRLevelDialog> {
                           selectedIndex = index;
                         });
                       },
-                      child: LevelItem(
-                          textColor: CEFRLevels[selectedIndex]!['level'] ==
-                                  item['level']
-                              ? AppColors.alizarinCrimson
-                              : Colors.black,
-                          levelName: item['level'],
-                          backgroundColor: item['color']),
+                      child: Container(
+                        padding: const EdgeInsets.only(top: spacing_10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(radius_10),
+                            color: index == selectedIndex
+                                ? AppColors.seashell
+                                : Colors.white),
+                        child: LevelItem(
+                            levelName: item['key'],
+                            backgroundColor: item['color2']),
+                      ),
                     );
                   }),
             ),
@@ -116,6 +141,7 @@ class LevelItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Container(
           width: width,
