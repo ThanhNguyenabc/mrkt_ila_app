@@ -2,7 +2,7 @@ import 'package:data/data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mrkt_app/screens/home/main_page.dart';
-import 'package:mrkt_app/screens/landing_page/landing_page.dart';
+import 'package:mrkt_app/screens/landing/landing_page.dart';
 import 'package:mrkt_app/screens/register/create_account.dart';
 
 import 'bloc/auth_bloc.dart';
