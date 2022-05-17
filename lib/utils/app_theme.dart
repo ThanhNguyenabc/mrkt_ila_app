@@ -12,7 +12,7 @@ const textTheme = TextTheme(
   headline6: TextStyle(fontSize: 11, color: Colors.black),
 );
 
-ThemeData lightAppTheme() {
+ThemeData lightTheme() {
   return ThemeData(
       appBarTheme: const AppBarTheme(
         systemOverlayStyle: SystemUiOverlayStyle.light,
@@ -32,5 +32,28 @@ ThemeData lightAppTheme() {
       brightness: Brightness.light,
       fontFamily: 'Poppins-Regular',
       scaffoldBackgroundColor: Colors.white,
+      textTheme: textTheme);
+}
+
+ThemeData darkTheme() {
+  return ThemeData(
+      appBarTheme: const AppBarTheme(
+        systemOverlayStyle: SystemUiOverlayStyle.light,
+        elevation: 0,
+        backgroundColor: Colors.white,
+        titleTextStyle: TextStyle(
+            fontSize: 18, color: Colors.black, fontFamily: mediumFont),
+        iconTheme: IconThemeData(color: Colors.black),
+      ),
+      bottomSheetTheme: const BottomSheetThemeData(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20)))),
+      dialogTheme: const DialogTheme(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20)))),
+      primaryColor: AppColors.primaryColor,
+      brightness: Brightness.dark,
+      fontFamily: 'Poppins-Regular',
+      scaffoldBackgroundColor: AppColors.emperor,
       textTheme: textTheme);
 }

@@ -26,5 +26,10 @@ class AppColors {
   static const seashell = Color(0xFFF1F1F1);
   static const kleinBlue = Color(0xFF00229C);
   static const red = Color(0xFFFF0000);
-  static const blueChalk = Color(0xFFEFE8FF);
+  static const blueChalk = Color(0xFFF4DEFF);
+  static const island = Color(0xFFFFFBEE);
+  static const milkPunch = Color(0xFFFFF6D9);
+  static const clearDay = Color(0xFFEFFFFC);
+  static const frostedMint = Color(0xFFDBFFF8);
+  static const whitePointer = Color(0xFFFAF0FF);
 }

@@ -1,4 +1,3 @@
-import 'package:data/data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -7,7 +6,7 @@ import 'package:mrkt_app/screens/profile/bloc/profile_bloc.dart';
 import 'package:mrkt_app/screens/profile/bloc/profile_state.dart';
 import 'package:mrkt_app/screens/profile/profile_cefr_level.dart';
 import 'package:mrkt_app/screens/profile/profile_header.dart';
-import 'package:mrkt_app/screens/profile/user_item.dart';
+import 'package:mrkt_app/screens/profile/setting_page.dart';
 import 'package:mrkt_app/service_locator.dart';
 import 'package:mrkt_app/utils/app_colors.dart';
 import 'package:mrkt_app/utils/constants.dart';
@@ -61,7 +60,12 @@ class _ProfilePageState extends State<ProfilePage> {
                     const SizedBox(
                       width: spacing_10,
                     ),
-                    SvgPicture.asset('asset/icons/ic_chevron_down.svg')
+                    SvgPicture.asset('asset/icons/ic_chevron_down.svg'),
+                    const Spacer(),
+                    GestureDetector(
+                        onTap: () =>
+                            Navigator.of(context).pushNamed(SettingPage.route),
+                        child: SvgPicture.asset('asset/icons/ic_setting.svg')),
                   ],
                 ),
               ),
