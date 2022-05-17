@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:data/src/local/tables/user_table.dart';
-import 'package:hive/hive.dart';
 
 class User {
   String? id;
