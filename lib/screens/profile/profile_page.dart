@@ -31,10 +31,13 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     final widgets = [
       const ProfileHeader(),
-      const ProfileCEFRLevel(),
+      const ProfileCEFRLevel(
+        currentLevelIndex: 3,
+      ),
       const LogOutBtn()
     ];
 
+    print("profile page");
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(spacing_16),

@@ -32,4 +32,5 @@ class AppColors {
   static const clearDay = Color(0xFFEFFFFC);
   static const frostedMint = Color(0xFFDBFFF8);
   static const whitePointer = Color(0xFFFAF0FF);
+  static const zumthor = Color(0xFFE6EDFF);
 }
