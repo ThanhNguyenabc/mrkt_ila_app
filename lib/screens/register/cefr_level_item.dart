@@ -5,14 +5,15 @@ import 'package:mrkt_app/widget/cefr_level_dialog.dart';
 import 'package:mrkt_app/widget/index.dart';
 
 class CEFRLevelItem extends StatefulWidget {
-  const CEFRLevelItem({Key? key}) : super(key: key);
+  const CEFRLevelItem({Key? key, this.onSelectedIndex}) : super(key: key);
+  final Function(int)? onSelectedIndex;
 
   @override
   State<CEFRLevelItem> createState() => _CEFRLevelItemState();
 }
 
 class _CEFRLevelItemState extends State<CEFRLevelItem> {
-  Map selectedItem = CEFRLevels[0];
+  int currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -33,18 +34,20 @@ class _CEFRLevelItemState extends State<CEFRLevelItem> {
                 context: context,
                 builder: (context) {
                   return CEFRLevelDialog(
+                    initLevelIndex: currentIndex,
+                    buttonTitle: "Continue",
                     onSelectedLevel: (index) {
-                      // updateUserInfo();
                       setState(() {
-                        selectedItem = CEFRLevels[index]!;
+                        currentIndex = index;
                       });
+                      widget.onSelectedIndex?.call(index);
                     },
                   );
                 });
           },
           child: LevelItem(
-            levelName: selectedItem['key'],
-            backgroundColor: selectedItem['color2'],
+            levelName: CEFRLevels[currentIndex]['key'],
+            backgroundColor: CEFRLevels[currentIndex]['color2'],
             width: 40,
             textSize: 15,
             isShowSubTitle: false,

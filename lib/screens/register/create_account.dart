@@ -34,8 +34,9 @@ class _CreatingAccountState extends State<CreatingAccount> {
   TextEditingController txtPhone = TextEditingController();
   TextEditingController txtPassword = TextEditingController();
   TextEditingController txtConfirmPassword = TextEditingController();
-  final formKey = GlobalKey<FormState>();
 
+  final formKey = GlobalKey<FormState>();
+  final currentCEFRLevelIndex = 0;
   String cefrLevel = '';
 
   @override
@@ -147,7 +148,9 @@ class _CreatingAccountState extends State<CreatingAccount> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: spacing_30),
-                  child: CEFRLevelItem(),
+                  child: CEFRLevelItem(
+                    onSelectedIndex: (index) {},
+                  ),
                 ),
                 if (accountType == AccountType.normal) ...{
                   const SizedBox(
@@ -165,10 +168,9 @@ class _CreatingAccountState extends State<CreatingAccount> {
                               return CEFRLevelDialog(
                                 onSelectedLevel: (index) =>
                                     cefrLevel = CEFRLevels[index]!['level'],
-                                buttonTitle: 'Select',
+                                buttonTitle: 'Continue',
                               );
                             }).then((value) {
-                          signUp();
                           // call api
                         });
                       }

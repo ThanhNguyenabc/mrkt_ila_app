@@ -10,9 +10,12 @@ import 'package:mrkt_app/widget/keep_alive_widget.dart';
 const double viewportFraction = 0.65;
 
 class CEFRLevelPage extends StatefulWidget {
-  const CEFRLevelPage({Key? key, this.onSelected}) : super(key: key);
+  const CEFRLevelPage({Key? key, this.onSelected, this.selectIndex = 0})
+      : super(key: key);
   static const route = "/cefrlevel";
   final Function(int)? onSelected;
+  final int selectIndex;
+
   @override
   State<CEFRLevelPage> createState() => _CEFRLevelPageState();
 }
@@ -24,7 +27,10 @@ class _CEFRLevelPageState extends State<CEFRLevelPage> {
 
   @override
   void initState() {
-    pageController = PageController(viewportFraction: viewportFraction);
+    currentIndex = widget.selectIndex;
+
+    pageController = PageController(
+        viewportFraction: viewportFraction, initialPage: currentIndex);
     super.initState();
   }
 
@@ -36,6 +42,7 @@ class _CEFRLevelPageState extends State<CEFRLevelPage> {
 
   @override
   Widget build(BuildContext context) {
+    print(currentIndex);
     final size = MediaQuery.of(context).size;
     final textTheme = Theme.of(context).textTheme;
     final imageW = math.min(size.width, size.height) * viewportFraction;

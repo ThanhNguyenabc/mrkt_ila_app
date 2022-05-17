@@ -1,13 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:mrkt_app/screens/cefr_level/CEFR_level_page.dart';
 import 'package:mrkt_app/utils/app_colors.dart';
 import 'package:mrkt_app/utils/constants.dart';
 import 'package:mrkt_app/widget/border_view.dart';
+import 'package:mrkt_app/widget/cefr_level_dialog.dart';
+import 'package:mrkt_app/widget/index.dart';
+import 'package:mrkt_app/widget/radial_bg_painter.dart';
 
-class ProfileCEFRLevel extends StatelessWidget {
-  const ProfileCEFRLevel({Key? key}) : super(key: key);
+class ProfileCEFRLevel extends StatefulWidget {
+  const ProfileCEFRLevel({Key? key, required this.currentLevelIndex})
+      : super(key: key);
+  final int currentLevelIndex;
+
+  @override
+  State<ProfileCEFRLevel> createState() => _ProfileCEFRLevelState();
+}
+
+class _ProfileCEFRLevelState extends State<ProfileCEFRLevel> {
+  late int currentIndex;
+  @override
+  void initState() {
+    currentIndex = widget.currentLevelIndex;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final currentLevel = CEFRLevels[currentIndex];
+    final previousLevel = CEFRLevels[currentIndex - 1];
+    final nextLevel = CEFRLevels[currentIndex + 1];
+    final size = MediaQuery.of(context).size;
+
     return BorderView(
       padding: const EdgeInsets.all(spacing_8),
       child: Column(
@@ -21,39 +45,85 @@ class ProfileCEFRLevel extends StatelessWidget {
                 style: Theme.of(context).textTheme.headline3?.copyWith(
                     fontFamily: semiBoldFont, color: AppColors.smalt),
               ),
-              Text(
-                'Change',
-                style: Theme.of(context)
-                    .textTheme
-                    .headline5
-                    ?.copyWith(color: AppColors.electricViolet, fontFamily: mediumFont),
+              GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () async {
+                  final result = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CEFRLevelPage(
+                                selectIndex: currentIndex,
+                              ))) as Map?;
+
+                  if (result != null) {
+                    setState(() {
+                      currentIndex = result["selectedIndex"];
+                    });
+                  }
+                },
+                child: Text(
+                  'Change',
+                  style: Theme.of(context).textTheme.headline5?.copyWith(
+                      color: AppColors.electricViolet, fontFamily: mediumFont),
+                ),
               )
             ],
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(
-                horizontal: 33, vertical: spacing_20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                LevelItem(levelName: "A2", backgroundColor: AppColors.saffron),
-                LevelItem(levelName: "B2", backgroundColor: AppColors.niagara),
-                LevelItem(levelName: "C2", backgroundColor: AppColors.scooter)
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-                left: 33, right: 33, top: spacing_20, bottom: spacing_20),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
-                LevelItem(
-                    levelName: "A1",
-                    backgroundColor: AppColors.alizarinCrimson),
-                LevelItem(
-                    levelName: "B1", backgroundColor: AppColors.fruitSalad),
-                LevelItem(levelName: "C1", backgroundColor: AppColors.violet)
+            padding: EdgeInsets.symmetric(
+                vertical: spacing_40, horizontal: size.width / 3 - 90),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                if (previousLevel != null)
+                  Positioned(
+                    child: Row(
+                      children: [
+                        LevelItem(
+                            levelName: previousLevel["key"],
+                            isShowSubTitle: false,
+                            width: 40,
+                            textSize: 18,
+                            backgroundColor: previousLevel["color2"]),
+                        const SizedBox(
+                          width: spacing_16,
+                        ),
+                        DoubleArrowView(
+                          color: currentLevel["color2"] as Color,
+                        ),
+                      ],
+                    ),
+                  ),
+                Align(
+                  child: CustomPaint(
+                    painter: RadialBackgroundPainter(
+                        radius: 20, color: currentLevel["color2"]),
+                    child: LevelItem(
+                        levelName: currentLevel["key"],
+                        isShowSubTitle: false,
+                        backgroundColor: currentLevel["color2"]),
+                  ),
+                ),
+                if (nextLevel != null)
+                  Positioned(
+                    right: 0,
+                    child: Row(
+                      children: [
+                        DoubleArrowView(
+                          color: nextLevel["color2"] as Color,
+                        ),
+                        const SizedBox(
+                          width: spacing_16,
+                        ),
+                        LevelItem(
+                            levelName: nextLevel["key"],
+                            isShowSubTitle: false,
+                            width: 40,
+                            textSize: 18,
+                            backgroundColor: nextLevel["color2"])
+                      ],
+                    ),
+                  )
               ],
             ),
           )
@@ -63,38 +133,19 @@ class ProfileCEFRLevel extends StatelessWidget {
   }
 }
 
-class LevelItem extends StatelessWidget {
-  const LevelItem(
-      {Key? key, required this.levelName, required this.backgroundColor})
-      : super(key: key);
-  final String levelName;
-  final Color backgroundColor;
+class DoubleArrowView extends StatelessWidget {
+  const DoubleArrowView({Key? key, required this.color}) : super(key: key);
+  final Color color;
+
   @override
   Widget build(BuildContext context) {
-    return Column(
+    final colorOpacity = color.withOpacity(0.4);
+    return Row(
       children: [
-        Container(
-          width: 60,
-          height: 60,
-          decoration:
-              BoxDecoration(shape: BoxShape.circle, color: backgroundColor),
-          child: Center(
-            child: Text(
-              levelName,
-              style: Theme.of(context)
-                  .textTheme
-                  .headline2
-                  ?.copyWith(fontFamily: phosphateInline, color: Colors.white),
-            ),
-          ),
-        ),
-        const SizedBox(
-          height: spacing_4,
-        ),
-        Text(
-          levelName,
-          style: Theme.of(context).textTheme.headline6,
-        )
+        SvgPicture.asset("asset/icons/ic_chevron_next.svg",
+            height: 13, color: colorOpacity),
+        SvgPicture.asset("asset/icons/ic_chevron_next.svg",
+            color: colorOpacity),
       ],
     );
   }

@@ -11,9 +11,11 @@ class CEFRLevelDialog extends StatefulWidget {
   const CEFRLevelDialog({
     Key? key,
     this.buttonTitle = 'Select',
+    this.initLevelIndex = 0,
     this.onSelectedLevel,
   }) : super(key: key);
   final String buttonTitle;
+  final int initLevelIndex;
   final Function(int)? onSelectedLevel;
   @override
   State<CEFRLevelDialog> createState() => _CEFRLevelDialogState();
@@ -23,10 +25,16 @@ class _CEFRLevelDialogState extends State<CEFRLevelDialog> {
   int selectedIndex = 0;
 
   @override
+  void initState() {
+    selectedIndex = widget.initLevelIndex;
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Dialog(
       child: BorderView(
-        padding: const EdgeInsets.all(spacing_8),
+        padding: const EdgeInsets.all(spacing_12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
@@ -36,24 +44,30 @@ class _CEFRLevelDialogState extends State<CEFRLevelDialog> {
                 Text(
                   'CEFR Level',
                   style: Theme.of(context).textTheme.headline3?.copyWith(
-                      fontFamily: semiBoldFont, color: AppColors.smalt),
+                      fontFamily: semiBoldFont, color: AppColors.primaryColor),
                 ),
                 const Spacer(),
                 GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: () async {
-                    final result = await Navigator.of(context)
-                        .pushNamed(CEFRLevelPage.route) as Map;
-                    setState(() {
-                      selectedIndex = result["selectedIndex"];
-                    });
+                    final result = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CEFRLevelPage(
+                                  selectIndex: selectedIndex,
+                                ))) as Map?;
+
+                    if (result != null) {
+                      setState(() {
+                        selectedIndex = result["selectedIndex"];
+                      });
+                    }
                   },
                   child: Text(
                     "detail",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline5
-                        ?.copyWith(color: AppColors.electricViolet),
+                    style: Theme.of(context).textTheme.headline5?.copyWith(
+                        color: AppColors.electricViolet,
+                        fontWeight: FontWeight.w600),
                   ),
                 )
               ],
@@ -96,7 +110,7 @@ class _CEFRLevelDialogState extends State<CEFRLevelDialog> {
               title: '',
               margin: const EdgeInsets.symmetric(horizontal: spacing_40),
               style: AppButtonStyle.primary
-                  .copyWith(backgroundColor: AppColors.blueChalk),
+                  .copyWith(backgroundColor: AppColors.zumthor),
               child: GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: () {
@@ -107,8 +121,7 @@ class _CEFRLevelDialogState extends State<CEFRLevelDialog> {
                     child: Text(
                   widget.buttonTitle,
                   style: Theme.of(context).textTheme.headline3?.copyWith(
-                      color: AppColors.electricViolet,
-                      fontFamily: semiBoldFont),
+                      color: AppColors.primaryColor, fontFamily: semiBoldFont),
                 )),
               ),
             ),
@@ -138,6 +151,7 @@ class LevelItem extends StatelessWidget {
   final double? textSize;
   final bool isShowSubTitle;
   final Color backgroundColor;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -146,9 +160,10 @@ class LevelItem extends StatelessWidget {
         Container(
           width: width,
           height: width,
+          padding: const EdgeInsets.only(bottom: spacing_4),
           decoration:
               BoxDecoration(shape: BoxShape.circle, color: backgroundColor),
-          child: Center(
+          child: Align(
             child: Text(
               levelName,
               style: Theme.of(context).textTheme.headline2?.copyWith(
