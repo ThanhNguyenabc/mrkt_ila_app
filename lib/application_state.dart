@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-
+import 'package:data/data.dart';
 import 'package:mrkt_app/application_event.dart';
 
 const locales = {
@@ -13,16 +13,22 @@ class ApplicationState extends Equatable {
   final Locale currentLocale;
   final ThemeMode appearanceMode;
 
-  const ApplicationState.init(
+  const ApplicationState._(
       {this.languageType = Language.en,
       this.currentLocale = const Locale('en', 'EN'),
       this.appearanceMode = ThemeMode.light});
+
+  ApplicationState.init(AppSetting? setting)
+      : this._(
+            appearanceMode: setting?.appearanceMode == ThemeMode.dark.name
+                ? ThemeMode.dark
+                : ThemeMode.light);
 
   ApplicationState copyWith(
           {Language? languageType,
           ThemeMode? appearanceMode,
           Locale? locale}) =>
-      ApplicationState.init(
+      ApplicationState._(
         currentLocale: locale ?? currentLocale,
         languageType: languageType ?? this.languageType,
         appearanceMode: appearanceMode ?? this.appearanceMode,
