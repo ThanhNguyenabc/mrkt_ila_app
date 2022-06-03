@@ -37,7 +37,6 @@ class _ProfilePageState extends State<ProfilePage> {
       const LogOutBtn()
     ];
 
-    print("profile page");
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(spacing_16),
@@ -63,12 +62,18 @@ class _ProfilePageState extends State<ProfilePage> {
                     const SizedBox(
                       width: spacing_10,
                     ),
-                    SvgPicture.asset('asset/icons/ic_chevron_down.svg'),
+                    SvgPicture.asset(
+                      'asset/icons/ic_chevron_down.svg',
+                      color: Theme.of(context).iconTheme.color,
+                    ),
                     const Spacer(),
                     GestureDetector(
                         onTap: () =>
                             Navigator.of(context).pushNamed(SettingPage.route),
-                        child: SvgPicture.asset('asset/icons/ic_setting.svg')),
+                        child: SvgPicture.asset(
+                          'asset/icons/ic_setting.svg',
+                          color: Theme.of(context).iconTheme.color,
+                        )),
                   ],
                 ),
               ),
@@ -145,6 +150,8 @@ class LogOutBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textColor = Theme.of(context).colorScheme.commonColor;
+    print("render log out btn");
     return GestureDetector(
       onTap: () {
         showBottomAction(context, [
@@ -152,7 +159,7 @@ class LogOutBtn extends StatelessWidget {
               titleStyle: Theme.of(context)
                   .textTheme
                   .headline5
-                  ?.copyWith(fontFamily: lightFont),
+                  ?.copyWith(fontFamily: lightFont, color: Colors.black),
               title: 'Are you sure you want to log out?'),
           ActionSheetItem(
             onPress: () {
@@ -165,13 +172,14 @@ class LogOutBtn extends StatelessWidget {
       },
       child: BorderView(
         padding: const EdgeInsets.symmetric(vertical: spacing_12),
+        backgroundColor: textColor,
         child: Center(
             child: Text(
           'Log out',
           style: Theme.of(context)
               .textTheme
               .headline3
-              ?.copyWith(fontFamily: mediumFont, color: AppColors.primaryColor),
+              ?.copyWith(fontFamily: mediumFont, color: Theme.of(context).colorScheme.primaryTextColor),
         )),
       ),
     );

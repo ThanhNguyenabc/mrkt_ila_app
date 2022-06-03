@@ -19,6 +19,7 @@ class ProfileHeader extends StatelessWidget {
     return BlocProvider(
       create: (_) => getIt<ProfileBloc>(),
       child: BorderView(
+        backgroundColor: Theme.of(context).colorScheme.commonColor,
         padding: const EdgeInsets.symmetric(
             horizontal: spacing_8, vertical: spacing_16),
         child: Row(
@@ -38,7 +39,11 @@ class ProfileHeader extends StatelessWidget {
                       return Text(
                         '${state.user?.firstname} ${state.user?.lastname}',
                         style: textTheme.headline2?.copyWith(
-                            fontFamily: semiBoldFont, color: AppColors.smalt),
+                            fontFamily: semiBoldFont,
+                            fontWeight: FontWeight.w600,
+                            color: Theme.of(context)
+                                .colorScheme
+                                .profileTitleColor),
                       );
                     }),
                 BlocBuilder<ProfileBloc, ProfileState>(
@@ -47,19 +52,18 @@ class ProfileHeader extends StatelessWidget {
                     builder: (context, state) {
                       return Text(
                         'Nickname: ${state.user?.nickname}',
-                        style: textTheme.headline4
-                            ?.copyWith(color: AppColors.scorpion),
+                        style: textTheme.headline4?.copyWith(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .profileTitleColor),
                       );
                     }),
                 BlocBuilder<ProfileBloc, ProfileState>(
                     buildWhen: (previous, current) =>
                         previous.user != current.user,
                     builder: (context, state) {
-                      return Text(
-                        'Birthday: ${state.user?.birthday ?? '-'} ',
-                        style: textTheme.headline5
-                            ?.copyWith(color: AppColors.scorpion),
-                      );
+                      return Text('Birthday: ${state.user?.birthday ?? '-'} ',
+                          style: textTheme.headline5);
                     }),
               ],
             ),
@@ -70,9 +74,11 @@ class ProfileHeader extends StatelessWidget {
                     Navigator.of(context).pushNamed(ProfileUpdate.route),
                 child: Padding(
                     padding: const EdgeInsets.only(
-                        left: spacing_20, top: spacing_20, bottom: spacing_20),
-                    child:
-                        SvgPicture.asset('asset/icons/ic_chevron_next.svg'))),
+                        left: spacing_40, top: spacing_20, bottom: spacing_20),
+                    child: SvgPicture.asset(
+                      'asset/icons/ic_chevron_next.svg',
+                      color: Theme.of(context).iconTheme.color,
+                    ))),
           ],
         ),
       ),

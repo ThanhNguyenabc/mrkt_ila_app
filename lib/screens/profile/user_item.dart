@@ -18,7 +18,6 @@ class UserItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('user item');
     return GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: onPress,

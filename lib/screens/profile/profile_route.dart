@@ -3,10 +3,10 @@ import 'package:mrkt_app/screens/profile/profile_page.dart';
 import 'package:mrkt_app/screens/profile/profile_update.dart';
 import 'package:mrkt_app/screens/profile/setting_page.dart';
 
-Map<String, Widget> profileRoutes(RouteSettings settings) {
+Map<String, WidgetBuilder> profileRoutes() {
   return {
-    ProfilePage.route: const ProfilePage(),
-    ProfileUpdate.route: const ProfileUpdate(),
-    SettingPage.route: const SettingPage(),
+    ProfilePage.route: (_) => const ProfilePage(),
+    ProfileUpdate.route: (_) => const ProfileUpdate(),
+    SettingPage.route: (_) => const SettingPage(),
   };
 }

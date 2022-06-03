@@ -82,10 +82,12 @@ class _ProfileUpdateState extends State<ProfileUpdate> {
                     ),
                     InputText(
                       controller: txtCalendarController,
-                      backgroundColor: AppColors.seashell,
+                      backgroundColor:Theme.of(context).colorScheme.commonColor,
                       borderRadius: radius_10,
-                      rightIcon:
-                          SvgPicture.asset('asset/icons/ic_calendar.svg'),
+                      rightIcon: SvgPicture.asset(
+                        'asset/icons/ic_calendar.svg',
+                        color: Theme.of(context).iconTheme.color,
+                      ),
                       onPressRightIcon: () =>
                           showCalendarPicker(context, (date) {
                         txtCalendarController.text =

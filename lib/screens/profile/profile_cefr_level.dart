@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:mrkt_app/screens/cefr_level/CEFR_level_page.dart';
+import 'package:mrkt_app/screens/cefr_level/cefr_level_page.dart';
 import 'package:mrkt_app/utils/app_colors.dart';
 import 'package:mrkt_app/utils/constants.dart';
 import 'package:mrkt_app/widget/border_view.dart';
@@ -33,6 +33,7 @@ class _ProfileCEFRLevelState extends State<ProfileCEFRLevel> {
     final size = MediaQuery.of(context).size;
 
     return BorderView(
+      backgroundColor: Theme.of(context).colorScheme.commonColor,
       padding: const EdgeInsets.all(spacing_8),
       child: Column(
         children: [
@@ -43,30 +44,27 @@ class _ProfileCEFRLevelState extends State<ProfileCEFRLevel> {
               Text(
                 'CEFR Level',
                 style: Theme.of(context).textTheme.headline3?.copyWith(
-                    fontFamily: semiBoldFont, color: AppColors.smalt),
+                    fontFamily: semiBoldFont,
+                    color: Theme.of(context).colorScheme.primaryTextColor),
               ),
               GestureDetector(
-                behavior: HitTestBehavior.opaque,
-                onTap: () async {
-                  final result = await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => CEFRLevelPage(
-                                selectIndex: currentIndex,
-                              ))) as Map?;
+                  behavior: HitTestBehavior.opaque,
+                  onTap: () async {
+                    final result = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CEFRLevelPage(
+                                  selectIndex: currentIndex,
+                                ))) as Map?;
 
-                  if (result != null) {
-                    setState(() {
-                      currentIndex = result["selectedIndex"];
-                    });
-                  }
-                },
-                child: Text(
-                  'Change',
-                  style: Theme.of(context).textTheme.headline5?.copyWith(
-                      color: AppColors.electricViolet, fontFamily: mediumFont),
-                ),
-              )
+                    if (result != null) {
+                      setState(() {
+                        currentIndex = result["selectedIndex"];
+                      });
+                    }
+                  },
+                  child: SvgPicture.asset("asset/icons/ic_edit.svg",
+                      color: Theme.of(context).colorScheme.editCEFRIconColor))
             ],
           ),
           Padding(
