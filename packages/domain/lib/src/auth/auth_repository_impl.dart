@@ -43,17 +43,9 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Map getCurrentAuthStatus() {
-    print("asadadada");
-    print(authLocalData.authStatus);
     return {
       "authStatus": authLocalData.authStatus,
       "user": authLocalData.user,
     };
-    // final result = await Future.wait<Result<dynamic>>(
-    //     [authLocalData.getAuthStatus(), authLocalData.getCurrentUser()]);
-    // return {
-    //   "authStatus": result[0].data,
-    //   "user": result[1].data,
-    // };
   }
 }

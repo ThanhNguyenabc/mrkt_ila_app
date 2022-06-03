@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:mrkt_app/screens/performance/performance_page.dart';
 import 'package:mrkt_app/screens/profile/profile_page.dart';
+import 'package:mrkt_app/screens/test_list/test_list_page.dart';
 import 'package:mrkt_app/utils/app_colors.dart';
 import 'package:mrkt_app/utils/constants.dart';
 import 'package:mrkt_app/widget/circular_image.dart';
-import 'package:mrkt_app/widget/web_in_app.dart';
+import 'package:mrkt_app/widget/keep_alive_widget.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -29,15 +31,13 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-    pages = [
-      Center(child: Text("home page")),
-      Container(
-        child: WebInApp(
-          url: 'https://beta.learn.ila.edu.vn/?module=test&framework=null&test=content/lessons/SJ-01-001/test',
-        ),
+    pages = const [
+      Center(
+        child: Text("Home page "),
       ),
-      Center(child: Text("performance page")),
-      const ProfilePage()
+      KeepAliveWidget(child: TestListPage()),
+      PerformancePage(),
+      KeepAliveWidget(child: ProfilePage())
     ];
   }
 
@@ -54,8 +54,8 @@ class _MainPageState extends State<MainPage> {
             ),
           ),
           bottomNavigationBar: DecoratedBox(
-            decoration: BoxDecoration(color: Colors.white, boxShadow: [
-              BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 5)
+            decoration: BoxDecoration(boxShadow: [
+              BoxShadow(color: Colors.black.withOpacity(0.0), blurRadius: 5)
             ]),
             child: TabBar(
                 padding: EdgeInsets.only(
@@ -63,9 +63,7 @@ class _MainPageState extends State<MainPage> {
                 onTap: (index) => setState(() {
                       currentIndex = index;
                     }),
-                indicator: const UnderlineTabIndicator(
-                    borderSide: BorderSide(width: 4.0, color: AppColors.gigas),
-                    insets: EdgeInsets.fromLTRB(28.0, 0.0, 28.0, 48.0)),
+                indicatorColor: Colors.transparent,
                 tabs: generateTab()),
           ),
         ));
@@ -78,12 +76,14 @@ class _MainPageState extends State<MainPage> {
         tabs.add(Tab(
             key: ValueKey(index),
             icon: SvgPicture.asset(
-              currentIndex == index
-                  ? selectedIcon[index]
-                  : unSelectedIcons[index],
-              width: 27,
-              height: 27,
-            )));
+                currentIndex == index
+                    ? selectedIcon[index]
+                    : unSelectedIcons[index],
+                width: 27,
+                height: 27,
+                color: currentIndex == index
+                    ? Theme.of(context).colorScheme.bottomActiveColor
+                    : Theme.of(context).colorScheme.bottomActiveColor)));
       } else {
         tabs.add(buildAvatar());
       }

@@ -8,6 +8,7 @@ import 'package:mrkt_app/widget/gradient_backgound.dart';
 class RegisterAccountType extends StatelessWidget {
   const RegisterAccountType({Key? key}) : super(key: key);
   static const route = "/register_page";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
