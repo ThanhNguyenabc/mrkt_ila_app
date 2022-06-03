@@ -33,9 +33,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     await Future.delayed(const Duration(milliseconds: 500));
     try {
       final result = await authRepository.login(event.username, event.password);
-      print("call success");
 
-      print(result.data?.id);
       // login failed
       if (result.data != null) {
         emit(state.copyWith(
@@ -48,7 +46,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ));
       }
     } catch (e) {
-      print(e);
       emit(state.copyWith(
         netWorkStatus: NetWorkStatus.fail,
       ));
@@ -61,9 +58,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       emit(state.copyWith(user: User(), authStatus: AuthStatus.logout));
       // localStorage.removeDataAfterLogout();
-    } catch (e) {
-      print(e);
-    }
+    } catch (e) {}
   }
 
   Future<void> registerAccount(RegisterEvent event, Emitter emit) async {
@@ -73,8 +68,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final dio = getIt.get<AppDio>();
       final response = await dio
           .postData('User_Create', requestData: {"data": requestData.toMap2()});
-      print('register');
-      print(response['data']);
       final newUser = event.data.copyWith(id: response["data"]);
       // cacheLoggedUser(newUser);
       emit(state.copyWith(
