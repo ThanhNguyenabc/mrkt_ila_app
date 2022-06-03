@@ -1,7 +1,10 @@
 import 'package:data/data.dart';
 import 'package:domain/repository.dart';
 import 'package:get_it/get_it.dart';
+import 'package:mrkt_app/application_bloc.dart';
+import 'package:mrkt_app/application_state.dart';
 import 'package:mrkt_app/screens/profile/bloc/profile_bloc.dart';
+import 'package:mrkt_app/screens/test_list/bloc/test_bloc.dart';
 import 'screens/auth/bloc/index.dart';
 
 GetIt getIt = GetIt.instance;
@@ -9,6 +12,7 @@ GetIt getIt = GetIt.instance;
 Future<void> initDenpendencies() async {
   getIt
     ..registerSingleton(AuthLocalData.getInstance())
+    ..registerSingleton(ApplicationBloc())
     ..registerSingleton(AppDio.getInstance(getIt()));
 
   // init repo
@@ -20,6 +24,6 @@ Future<void> initDenpendencies() async {
   // init bloc
   getIt
     ..registerSingleton(AuthBloc(authRepository: getIt<AuthRepositoryImpl>()))
-    ..registerFactory(() => ProfileBloc(authBloc: getIt.get<AuthBloc>()));
-  
+    ..registerFactory(() => ProfileBloc(authBloc: getIt.get<AuthBloc>()))
+    ..registerFactory(() => TestListBloc());
 }

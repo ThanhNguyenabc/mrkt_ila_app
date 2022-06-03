@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mrkt_app/screens/auth/auth_route.dart';
-import 'package:mrkt_app/screens/cefr_level/CEFR_level_page.dart';
+import 'package:mrkt_app/screens/cefr_level/cefr_level_page.dart';
 import 'package:mrkt_app/screens/home/main_page.dart';
 import 'package:mrkt_app/screens/landing/landing_page.dart';
 import 'package:mrkt_app/screens/profile/profile_route.dart';
