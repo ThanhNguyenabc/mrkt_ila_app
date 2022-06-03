@@ -17,34 +17,26 @@ class AuthPageParams {
 }
 
 class AuthPage extends StatefulWidget {
-  const AuthPage({Key? key}) : super(key: key);
-  static const route = '/auth_page';
-
+  const AuthPage({Key? key, this.params}) : super(key: key);
+  static const route = '/';
+  final AuthPageParams? params;
   @override
   State<AuthPage> createState() => _AuthPageState();
 }
 
 class _AuthPageState extends State<AuthPage> {
-  late Map<AuthStatus, Widget> screens;
-
-  @override
-  void initState() {
-    screens = {
-      AuthStatus.initial: const LandingPage(),
-      AuthStatus.logged: const MainPage(),
-      AuthStatus.login: const LoginPage(),
-      AuthStatus.logout: const LoginPage(),
-      AuthStatus.register: const CreatingAccount(),
-    };
-    super.initState();
-  }
+  Map<AuthStatus, Widget> screens = {
+    AuthStatus.initial: const LandingPage(),
+    AuthStatus.logged: const MainPage(),
+    AuthStatus.login: const LoginPage(),
+    AuthStatus.logout: const LoginPage(),
+    AuthStatus.register: const CreatingAccount(),
+  };
 
   @override
   Widget build(BuildContext context) {
     final authBloc = BlocProvider.of<AuthBloc>(context);
-    final params =
-        ModalRoute.of(context)?.settings.arguments as AuthPageParams?;
-    if (params != null && params.status != null) {}
+
     return BlocBuilder<AuthBloc, AuthState>(
       bloc: authBloc,
       buildWhen: (previous, current) =>
@@ -55,4 +47,3 @@ class _AuthPageState extends State<AuthPage> {
     );
   }
 }
- 
