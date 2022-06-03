@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:mrkt_app/utils/app_colors.dart';
 import 'package:mrkt_app/utils/constants.dart';
 import 'package:mrkt_app/widget/button.dart';
 import 'package:mrkt_app/widget/index.dart';
@@ -42,17 +43,19 @@ class _CEFRLevelPageState extends State<CEFRLevelPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(currentIndex);
     final size = MediaQuery.of(context).size;
     final textTheme = Theme.of(context).textTheme;
     final imageW = math.min(size.width, size.height) * viewportFraction;
+    final currentMode = Theme.of(context).brightness;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text("CEFR Level"),
       ),
       body: ColoredBox(
-        color: CEFRLevels[currentIndex]["color"],
+        color: currentMode == Brightness.dark
+            ? AppColors.rhino
+            : CEFRLevels[currentIndex]["color"],
         child: Stack(
           children: [
             SingleChildScrollView(

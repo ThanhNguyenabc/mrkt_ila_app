@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mrkt_app/screens/cefr_level/CEFR_level_page.dart';
+import 'package:mrkt_app/screens/cefr_level/cefr_level_page.dart';
 import 'package:mrkt_app/utils/app_colors.dart';
 import 'package:mrkt_app/utils/constants.dart';
 import 'package:mrkt_app/widget/app_button_style.dart';
