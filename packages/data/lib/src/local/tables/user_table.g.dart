@@ -17,8 +17,8 @@ class UserTableAdapter extends TypeAdapter<UserTable> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return UserTable(
-      id: fields[1] as String,
-      password: fields[2] as String,
+      id: fields[1] as String?,
+      password: fields[2] as String?,
       firstname: fields[3] as String?,
       lastname: fields[4] as String?,
       role: fields[5] as String?,

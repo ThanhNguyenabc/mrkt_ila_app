@@ -1,4 +1,3 @@
-import 'package:data/src/local/tables/user_profile.dart';
 import 'package:hive/hive.dart';
 
 abstract class BaseLocalDatabase<TableType> {
@@ -11,7 +10,6 @@ abstract class BaseLocalDatabase<TableType> {
     boxInstance = Hive.openBox(boxName);
   }
 
- 
   Future<Box<TableType>> openBox() async {
     final box = await boxInstance;
     if (!box.isOpen) {
@@ -25,9 +23,9 @@ abstract class BaseLocalDatabase<TableType> {
     return box.get(key);
   }
 
-  Future<List<TableType>?> getAll(String key) async {
+  Future<Map> getAll() async {
     final Box<TableType> box = await openBox();
-    return box.toMap().values.toList();
+    return box.toMap();
   }
 
   Future<void> put(String key, dynamic value) async {

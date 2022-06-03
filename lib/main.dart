@@ -11,7 +11,7 @@ import 'package:mrkt_app/screens/auth/bloc/index.dart';
 import 'package:mrkt_app/service_locator.dart';
 import 'package:mrkt_app/utils/app_theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
+ 
 Map<String, dynamic>? safeParse(String? source) {
   if (source == null) return null;
   try {
