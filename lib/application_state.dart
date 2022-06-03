@@ -11,16 +11,16 @@ const locales = {
 class ApplicationState extends Equatable {
   final Language languageType;
   final Locale currentLocale;
-  final Appearance appearanceMode;
+  final ThemeMode appearanceMode;
 
   const ApplicationState.init(
       {this.languageType = Language.en,
       this.currentLocale = const Locale('en', 'EN'),
-      this.appearanceMode = Appearance.light});
+      this.appearanceMode = ThemeMode.light});
 
   ApplicationState copyWith(
           {Language? languageType,
-          Appearance? appearanceMode,
+          ThemeMode? appearanceMode,
           Locale? locale}) =>
       ApplicationState.init(
         currentLocale: locale ?? currentLocale,

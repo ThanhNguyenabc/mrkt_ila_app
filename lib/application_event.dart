@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 enum Language { vi, en }
 
@@ -18,7 +19,7 @@ class ChangeLanguage extends ApplicationEvent {
 }
 
 class ChangeAppearanceMode extends ApplicationEvent {
-  final Appearance mode;
+  final ThemeMode mode;
 
   const ChangeAppearanceMode(this.mode);
 

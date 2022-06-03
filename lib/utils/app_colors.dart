@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
+  static ThemeMode currentMode = ThemeMode.light;
+
   static const boulder = Color(0xFF7A7A7A);
   static const primaryColor = Color(0xFF2F69EC);
   static const alto = Color(0xFFD1D1D1);
@@ -33,4 +35,40 @@ class AppColors {
   static const frostedMint = Color(0xFFDBFFF8);
   static const whitePointer = Color(0xFFFAF0FF);
   static const zumthor = Color(0xFFE6EDFF);
+  static const anakiwa = Color(0xFF98DAFF);
+  static const portage = Color(0xFF9366F2);
+  static const dogerblue = Color(0xFF3EB9FF);
+  static const balzeOrange = Color(0xFFFF6600);
+  static const melrose = Color(0xFFB09FFF);
+
+  static const rhino = Color(0xFF2C2F5C);
+  static const solitude = Color(0xFFE2EEFF);
+  static const eastbay = Color(0xFF4D507E);
+  static const malibu = Color(0xFF4CBCFC);
+}
+
+extension AppColorScheme on ColorScheme {
+  Color get primaryColor => AppColors.primaryColor;
+  Color get primaryTextColor =>
+      brightness == Brightness.light ? AppColors.primaryColor : Colors.white;
+
+  Color get bottomUnActiveColor =>
+      brightness == Brightness.light ? Colors.black : Colors.white;
+  Color get bottomActiveColor =>
+      brightness == Brightness.light ? AppColors.gigas : AppColors.solitude;
+  Color get commonColor =>
+      brightness == Brightness.light ? Colors.white : AppColors.eastbay;
+  Color get testListItemDesBgColor => brightness == Brightness.light
+      ? AppColors.electricViolet
+      : AppColors.malibu;
+  Color get profileTitleColor =>
+      brightness == Brightness.light ? AppColors.gigas : AppColors.solitude;
+  Color get settingLinks => brightness == Brightness.light
+      ? Colors.black.withOpacity(0.5)
+      : AppColors.solitude;
+  Color get selectedAppearanceColor =>
+      brightness == Brightness.light ? Colors.black : Colors.white;
+  Color get editCEFRIconColor => brightness == Brightness.light
+      ? AppColors.electricViolet
+      : AppColors.solitude;
 }
