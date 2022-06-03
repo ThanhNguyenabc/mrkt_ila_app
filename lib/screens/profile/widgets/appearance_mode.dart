@@ -14,13 +14,16 @@ class AppearanceMode extends StatelessWidget {
   final appearanceMode = const [
     {
       'title': 'Light mode',
-      'icon': 'asset/icons/ic_light_mode.svg',
-      'mode': Appearance.light
+      'selectedIcon': 'asset/icons/ic_light_mode.svg',
+      'unSelectedIcon': 'asset/icons/ic_unselect_lightmode.svg',
+      'mode': ThemeMode.light
     },
     {
       'title': 'Dark mode',
-      'icon': 'asset/icons/ic_dark_mode.svg',
-      'mode': Appearance.dark
+      'selectedIcon': 'asset/icons/ic_dark_mode.svg',
+      'unSelectedIcon': 'asset/icons/ic_unselect_darkmode.svg',
+      "size": 19.0,
+      'mode': ThemeMode.dark
     }
   ];
   @override
@@ -30,9 +33,11 @@ class AppearanceMode extends StatelessWidget {
             buildWhen: (previous, current) =>
                 previous.appearanceMode != current.appearanceMode,
             builder: (context, state) {
-              final itemMode = item['mode'] as Appearance;
+              final itemMode = item['mode'] as ThemeMode;
               return ModeItem(
-                  iconPath: item['icon'] as String,
+                  selectedIcon: item['selectedIcon'] as String,
+                  unSelectedIcon: item['unSelectedIcon'] as String,
+                  iconSize: item["size"] as double?,
                   isSelected: itemMode == state.appearanceMode,
                   onPressItem: () {
                     BlocProvider.of<ApplicationBloc>(context)
@@ -42,6 +47,7 @@ class AppearanceMode extends StatelessWidget {
             }))
         .toList();
     return BorderView(
+      backgroundColor: Theme.of(context).colorScheme.commonColor,
       padding: const EdgeInsets.symmetric(
           horizontal: spacing_10, vertical: spacing_20),
       child: Row(
@@ -62,29 +68,38 @@ class AppearanceMode extends StatelessWidget {
 }
 
 class ModeItem extends StatelessWidget {
-  final String iconPath;
+  final String selectedIcon;
+  final String unSelectedIcon;
+
   final bool isSelected;
   final String title;
   final VoidCallback? onPressItem;
-
+  final double? iconSize;
   const ModeItem(
       {Key? key,
-      required this.iconPath,
+      required this.selectedIcon,
+      required this.unSelectedIcon,
       required this.isSelected,
       required this.title,
+      this.iconSize,
       this.onPressItem})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final selectedColor = isSelected ? Colors.black : AppColors.alto;
+    final selectedColor = isSelected
+        ? Theme.of(context).colorScheme.selectedAppearanceColor
+        : AppColors.alto;
+    final icon = isSelected ? selectedIcon : unSelectedIcon;
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: onPressItem,
       child: Column(
         children: [
           SvgPicture.asset(
-            iconPath,
+            icon,
+            width: iconSize,
+            height: iconSize,
             color: selectedColor,
           ),
           const SizedBox(

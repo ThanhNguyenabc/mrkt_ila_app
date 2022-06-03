@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:mrkt_app/screens/auth/change_password.dart';
+import 'package:mrkt_app/utils/app_colors.dart';
 import 'package:mrkt_app/utils/constants.dart';
 import 'package:mrkt_app/widget/border_view.dart';
 import 'package:mrkt_app/widget/custom_switch.dart';
@@ -11,6 +12,7 @@ class SecurityView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BorderView(
+        backgroundColor: Theme.of(context).colorScheme.commonColor,
       padding: const EdgeInsets.all(spacing_10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,7 +34,10 @@ class SecurityView extends StatelessWidget {
               onTap: () => changePassword(context),
               behavior: HitTestBehavior.opaque,
               child: Row(children: [
-                SvgPicture.asset('asset/icons/ic_change_pw.svg'),
+                SvgPicture.asset(
+                  'asset/icons/ic_change_pw.svg',
+                  color: Theme.of(context).iconTheme.color,
+                ),
                 const SizedBox(
                   width: spacing_20,
                 ),
@@ -42,7 +47,10 @@ class SecurityView extends StatelessWidget {
                         .headline5
                         ?.copyWith(fontWeight: FontWeight.w400)),
                 const Spacer(),
-                SvgPicture.asset('asset/icons/ic_chevron_next.svg'),
+                SvgPicture.asset(
+                  'asset/icons/ic_chevron_next.svg',
+                  color: Theme.of(context).iconTheme.color,
+                ),
               ]),
             ),
           ),

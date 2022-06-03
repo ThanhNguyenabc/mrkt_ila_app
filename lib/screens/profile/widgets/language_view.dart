@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mrkt_app/application_bloc.dart';
 import 'package:mrkt_app/application_event.dart';
 import 'package:mrkt_app/application_state.dart';
+import 'package:mrkt_app/utils/app_colors.dart';
 import 'package:mrkt_app/utils/constants.dart';
 
 import 'package:mrkt_app/widget/border_view.dart';
@@ -44,6 +45,7 @@ class _LanguageViewState extends State<LanguageView> {
             }))
         .toList();
     return BorderView(
+        backgroundColor: Theme.of(context).colorScheme.commonColor,
         padding: const EdgeInsets.all(spacing_10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

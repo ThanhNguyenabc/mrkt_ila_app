@@ -34,12 +34,14 @@ class ILAInfo extends StatelessWidget {
         child: Text(
           "Delete account",
           style: textTheme?.copyWith(
-              decoration: TextDecoration.underline,
-              color: AppColors.electricViolet),
+            decoration: TextDecoration.underline,
+            // color: AppColors.getColorByKey("settingLinks"),
+          ),
         ),
       )
     ];
     return BorderView(
+      backgroundColor: Theme.of(context).colorScheme.commonColor,
       padding: const EdgeInsets.all(spacing_10),
       child: ListView.separated(
           shrinkWrap: true,
@@ -62,7 +64,7 @@ class ILAInfo extends StatelessWidget {
           titleStyle: Theme.of(context)
               .textTheme
               .headline5
-              ?.copyWith(fontFamily: lightFont),
+              ?.copyWith(fontFamily: lightFont, color: Colors.black),
           title: 'Are you sure you want to delete this account?'),
       ActionSheetItem(
         onPress: () {
@@ -94,7 +96,10 @@ class VersionItem extends StatelessWidget {
         ),
         Text(
           version,
-          style: textTheme.headline6?.copyWith(fontWeight: FontWeight.w300),
+          style: textTheme.headline6?.copyWith(
+            fontWeight: FontWeight.w300,
+            // color: AppColors.getColorByKey("settingLinks"),
+          ),
         ),
       ],
     );
@@ -119,7 +124,7 @@ class AppInfo extends StatelessWidget {
             child: Text(
               "Privacy policy",
               style: Theme.of(context).textTheme.headline6?.copyWith(
-                  color: Colors.black.withOpacity(0.5),
+                  // color: AppColors.getColorByKey("settingLinks"),
                   decoration: TextDecoration.underline),
             ),
           ),
@@ -128,7 +133,7 @@ class AppInfo extends StatelessWidget {
           child: Text(
             "Terms and conditions",
             style: Theme.of(context).textTheme.headline6?.copyWith(
-                color: Colors.black.withOpacity(0.5),
+                // color: AppColors.getColorByKey("settingLinks"),
                 decoration: TextDecoration.underline),
           ),
         ),
