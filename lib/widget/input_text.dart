@@ -12,7 +12,7 @@ class InputText extends StatelessWidget {
       this.rightIcon,
       this.onPressRightIcon,
       this.controller,
-      this.backgroundColor = Colors.white,
+      this.backgroundColor,
       this.obscureText = false,
       this.isEnable,
       this.validator,
@@ -22,7 +22,7 @@ class InputText extends StatelessWidget {
       : super(key: key);
   final String? hint;
   final TextStyle? textStyle;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final Color? textColor;
   final Widget? leftIcon;
   final Widget? rightIcon;
@@ -34,7 +34,7 @@ class InputText extends StatelessWidget {
   final String? errorText;
   final String? Function(String?)? validator;
   final Function(String)? onChanged;
-  
+
   @override
   Widget build(BuildContext context) {
     final style = textStyle ??

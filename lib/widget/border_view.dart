@@ -9,7 +9,6 @@ class BorderView extends StatelessWidget {
       this.margin,
       this.height,
       this.width,
-      this.borderColor = Colors.white,
       this.backgroundColor = Colors.white,
       this.borderRadius})
       : super(key: key);
@@ -17,7 +16,6 @@ class BorderView extends StatelessWidget {
   final EdgeInsets? padding;
   final EdgeInsets? margin;
 
-  final Color borderColor;
   final double? height;
   final double? width;
 
@@ -35,7 +33,7 @@ class BorderView extends StatelessWidget {
       width: width,
       decoration: BoxDecoration(
           color: backgroundColor,
-          border: Border.all(color: borderColor),
+          border: Border.all(color: Colors.transparent),
           boxShadow: [
             BoxShadow(
                 color: Colors.black.withOpacity(0.1), blurRadius: radius_10)

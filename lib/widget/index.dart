@@ -32,7 +32,7 @@ final CEFRLevels = <int, dynamic>{
   },
   3: {
     "key": "B2",
-    "image": "asset/images/b2_levvel.png",
+    "image": "asset/images/b2_level.png",
     "title": "B2 - Upper intermediate",
     "color": AppColors.frostedMint,
     "color2": AppColors.fruitSalad,
